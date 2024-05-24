@@ -16,7 +16,7 @@ public class MarriageValidations {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("D MMM YYYY");
 
     public void printLivingAndMarried(List<String> marriedAndLiving) throws IOException {
-        for(String name : marriedAndLiving) {
+        for (String name : marriedAndLiving) {
             System.out.print("INFO: INDIVIDUAL: US30: Individual is married and living: ");
             System.out.println(name.replace("/", ""));
         }
@@ -25,8 +25,8 @@ public class MarriageValidations {
 
     public List<String> getLivingAndMarried(Map<String, Map<String, String>> individualsAttributeMap) {
         List<String> results = new ArrayList<>();
-        for(Map.Entry<String, Map<String, String>> individual : individualsAttributeMap.entrySet()) {
-            if(!"NA".equals(individual.getValue().get("spouse")) && "true".equalsIgnoreCase(individual.getValue().get("alive"))) {
+        for (Map.Entry<String, Map<String, String>> individual : individualsAttributeMap.entrySet()) {
+            if (!"NA".equals(individual.getValue().get("spouse")) && "true".equalsIgnoreCase(individual.getValue().get("alive"))) {
                 results.add(individual.getValue().get("name"));
             }
         }
@@ -34,7 +34,7 @@ public class MarriageValidations {
     }
 
     public void printInvalidDivorces(List<String> invalidDivorces) throws IOException {
-        for(String message : invalidDivorces) {
+        for (String message : invalidDivorces) {
             System.out.println(message);
         }
         System.out.println();
@@ -42,29 +42,29 @@ public class MarriageValidations {
 
     public List<String> validateDivorceBeforeDeath(Map<String, Map<String, Object>> familyMap, Map<String, Map<String, String>> individualsAttributeMap) throws ParseException {
         List<String> results = new ArrayList<>();
-        for(Map.Entry<String, Map<String, Object>> family : familyMap.entrySet()) {
-            if(!"NA".equals(family.getValue().get("divorced"))) {
+        for (Map.Entry<String, Map<String, Object>> family : familyMap.entrySet()) {
+            if (!"NA".equals(family.getValue().get("divorced"))) {
                 boolean invalid = false;
-                Date divorceDate = dateFormat.parse((String)family.getValue().get("divorced"));
-                String husbandId = (String)family.getValue().get("husband");
-                String wifeId = (String)family.getValue().get("wife");
+                Date divorceDate = dateFormat.parse((String) family.getValue().get("divorced"));
+                String husbandId = (String) family.getValue().get("husband");
+                String wifeId = (String) family.getValue().get("wife");
                 String husbandDeath = individualsAttributeMap.get(husbandId).get("death");
                 String wifeDeath = individualsAttributeMap.get(wifeId).get("death");
-                if(!"NA".equals(husbandDeath)) {
+                if (!"NA".equals(husbandDeath)) {
                     Date death = dateFormat.parse(husbandDeath);
-                    if(death.before(divorceDate)) {
+                    if (death.before(divorceDate)) {
                         invalid = true;
                     }
                 }
-                if(!"NA".equals(wifeDeath)) {
+                if (!"NA".equals(wifeDeath)) {
                     Date death = dateFormat.parse(husbandDeath);
-                    if(death.before(divorceDate)) {
+                    if (death.before(divorceDate)) {
                         invalid = true;
                     }
                 }
-                if(invalid) {
+                if (invalid) {
                     results.add("ERROR: FAMILY: US06: Divorce before death: family id: " + family.getKey().replace("@", "") +
-                    " Husband: " + family.getValue().get("husbandName") + " Wife: " + family.getValue().get("wifeName"));
+                            " Husband: " + family.getValue().get("husbandName") + " Wife: " + family.getValue().get("wifeName"));
                 }
             }
         }

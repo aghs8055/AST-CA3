@@ -69,7 +69,7 @@ public class TestValidation {
         List<String> results = deathValidations.listDeceasedFamilyMembers(null);
         Assert.assertTrue(results.size() == 0);
     }
-    
+
     @Test
     public void deathBeforeMarriageTest() throws ParseException {
         DeathValidations deathValidations = new DeathValidations();

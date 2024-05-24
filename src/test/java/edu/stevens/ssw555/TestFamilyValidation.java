@@ -123,7 +123,7 @@ public class TestFamilyValidation {
 
         Assert.assertEquals("Number of invalid divorces should be 1", 1, marriageValidations.validateDivorceBeforeDeath(familyDetails, individualDetails).size());
     }
-    
+
     @Test
     public void fewerThanFifteenChildren() {
         FamilyValidations familyValidations = new FamilyValidations();

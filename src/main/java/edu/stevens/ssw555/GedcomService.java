@@ -70,26 +70,25 @@ public class GedcomService {
 
             US02 userStory02 = new US02();
             userStory02.us02(gedcomInputFile);
-            
+
 
             US31 userStory31 = new US31();
             userStory31.us31(gedcomInputFile);
 
-            
-            
+
             US10 userStory10 = new US10();
             userStory10.us10(gedcomInputFile);
-            
+
             US21 userStory21 = new US21();
             userStory21.us21(gedcomInputFile);
-            
+
 
             US12 userStory12 = new US12();
             userStory12.us12(gedcomInputFile);
-            
+
             US13 userStory13 = new US13();
             userStory13.us13(gedcomInputFile);
-            
+
 
             DeathValidations deathValidations = new DeathValidations();
             deathValidations.printDeceasedFamilyMemberList(
@@ -107,12 +106,12 @@ public class GedcomService {
 
             marriageValidations.printInvalidDivorces(marriageValidations.validateDivorceBeforeDeath(gedcomService.getFamilyAttributeMaps(),
                     gedcomService.getIndividualAttributeMaps()));
-            
-            for(String msg : deathValidations.validateMarriagesBeforeDeath(gedcomService.getFamilyAttributeMaps(), gedcomService.getIndividualAttributeMaps())) {
+
+            for (String msg : deathValidations.validateMarriagesBeforeDeath(gedcomService.getFamilyAttributeMaps(), gedcomService.getIndividualAttributeMaps())) {
                 System.out.println(msg);
             }
 
-            for(String msg : familyValidations.fewerThanFifteenChildren(gedcomService.getFamilyAttributeMaps())) {
+            for (String msg : familyValidations.fewerThanFifteenChildren(gedcomService.getFamilyAttributeMaps())) {
                 System.out.println(msg);
             }
 
@@ -324,22 +323,19 @@ public class GedcomService {
         int count1 = 0;
         for (SortedMap.Entry entry : mapFamily.entrySet()) {
             String[] string = entry.getValue().toString().split(" ");
-            
-            if(string.length==11){
-            table2[count1] = new String[]{"F" + entry.getKey(), string[0] + " " + string[1] + " " + string[2], 
-            		string[3], string[4], string[5] + " " + string[6], string[7], string[8] + " " + string[9], string[10]};
-            }
-            else  if(string.length<11){
-                table2[count1] = new String[]{"F" + entry.getKey(), string[0] + " " + string[1] + " " + string[2], 
-                		string[3], string[4], string[5] + " " + string[6], string[7], string[8] + " " + string[9],"NA"};
-                }
-            else{
-                table2[count1] = new String[]{"F" + entry.getKey(), string[0] + " " 
-            + string[1] + " " + string[2], string[3]+" "+ string[4]+" "+string[5] , string[6], 
-            string[7]+" "+ string[8] , string[9],string[10]+" "+string[11],string[12]};
 
-                
-            	
+            if (string.length == 11) {
+                table2[count1] = new String[]{"F" + entry.getKey(), string[0] + " " + string[1] + " " + string[2],
+                        string[3], string[4], string[5] + " " + string[6], string[7], string[8] + " " + string[9], string[10]};
+            } else if (string.length < 11) {
+                table2[count1] = new String[]{"F" + entry.getKey(), string[0] + " " + string[1] + " " + string[2],
+                        string[3], string[4], string[5] + " " + string[6], string[7], string[8] + " " + string[9], "NA"};
+            } else {
+                table2[count1] = new String[]{"F" + entry.getKey(), string[0] + " "
+                        + string[1] + " " + string[2], string[3] + " " + string[4] + " " + string[5], string[6],
+                        string[7] + " " + string[8], string[9], string[10] + " " + string[11], string[12]};
+
+
             }
             count1++;
         }
@@ -431,11 +427,10 @@ public class GedcomService {
         attributeMap.put("husbandName", husbandName);
         attributeMap.put("wife", wife);
         attributeMap.put("wifeName", wifeName);
-        if(children.equals("")){
+        if (children.equals("")) {
             attributeMap.put("children", children);
 
-        }
-        else{
+        } else {
             attributeMap.put("children", makeChildrenList(children));
 
         }
